@@ -3,7 +3,7 @@ import axios from "axios";
 
 const entertainmentStreamingUrl =
   process.env.REACT_APP_ENTERTAINMENT_STREAMING_URL;
-const apiUrl = `${entertainmentStreamingUrl}api/channel-list/?is_popular=true/`;
+const apiUrl = `${entertainmentStreamingUrl}api/channel-list/?is_popular=true`;
 
 const getChannels = async () => {
 

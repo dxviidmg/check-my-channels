@@ -1,12 +1,10 @@
 import React from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import { useSelector } from "react-redux";
 
 const HLSPlayer = (props) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
-  const state = useSelector((state) => state);
 
   React.useEffect(() => {
     const options = {
@@ -14,7 +12,7 @@ const HLSPlayer = (props) => {
       controls: true,
       sources: [
         {
-          src: state.content.currentContent.link,
+          src: props.link,
           type: "application/x-mpegURL",
         },
       ],
@@ -22,6 +20,7 @@ const HLSPlayer = (props) => {
 
     const onReadyHandler = typeof props.onReady === 'function' ? props.onReady : undefined;
 
+    console.log('onReadyHandler', onReadyHandler)
     if (!playerRef.current) {
       const videoElement = document.createElement("video-js");
 
@@ -47,7 +46,7 @@ const HLSPlayer = (props) => {
       player.autoplay(options.autoplay);
       player.src(options.sources);
     }
-  }, [videoRef, state, props.onReady]);
+  }, [videoRef, props.onReady]);
 
   React.useEffect(() => {
     const player = playerRef.current;
