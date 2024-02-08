@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import getChannels from '../api/getChannels';
-import HLSPlayer from '../components/hlsPlayer/HLSPlayer';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
+import React, { useEffect, useState } from "react";
+import getChannels from "../api/getChannels";
+import HLSPlayer from "../components/hlsPlayer/HLSPlayer";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const List = () => {
   const [channels, setChannels] = useState([]);
@@ -15,10 +14,10 @@ const List = () => {
 
         channelsData.sort((a, b) => a.name.localeCompare(b.name));
 
-        console.log('channelsData', channelsData);
+        console.log("channelsData", channelsData);
         setChannels(channelsData);
       } catch (error) {
-        console.error('Error fetching channels:', error);
+        console.error("Error fetching channels:", error);
       }
     };
 
@@ -27,10 +26,14 @@ const List = () => {
 
   return (
     <Row>
+      <h1>Check my channels</h1>
       {channels.map((channel) => {
-        return (<Col md={3}><HLSPlayer link={channel.link}/>
-        {channel.name}
-        </Col>)
+        return (
+          <Col md={3}>
+            <HLSPlayer link={channel.link} />
+            {channel.name}
+          </Col>
+        );
       })}
     </Row>
   );
