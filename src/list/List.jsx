@@ -6,36 +6,46 @@ import Col from "react-bootstrap/Col";
 
 const List = () => {
   const [channels, setChannels] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const channelsData = await getChannels();
-
         channelsData.sort((a, b) => a.name.localeCompare(b.name));
-
-        console.log("channelsData", channelsData);
         setChannels(channelsData);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching channels:", error);
+        setError(error);
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
-    <Row>
+    <div>
       <h1>Check my channels</h1>
-      {channels.map((channel) => {
-        return (
-          <Col md={3}>
+      <Row>
+        {channels.map((channel, index) => (
+          <Col key={index} md={3}>
             <HLSPlayer link={channel.link} />
-            {channel.name}
+            <p>{channel.name}</p>
           </Col>
-        );
-      })}
-    </Row>
+        ))}
+      </Row>
+    </div>
   );
 };
 
