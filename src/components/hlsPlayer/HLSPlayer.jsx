@@ -24,15 +24,15 @@ const HLSPlayer = (props) => {
     if (!playerRef.current) {
       const videoElement = document.createElement("video-js");
 
-      // Añadir la clase para centrar el botón de reproducción
+      // Add class to center the play button
       videoElement.classList.add('vjs-big-play-centered');
 
-      // Establecer el 100% de ancho
+      // Set width to 100%
       videoElement.style.width = '100%';
       videoElement.style.minHeight = '300px';
       videoElement.style.height = '100%';
 
-      // Agregar el elemento al DOM
+      // Append the element to the DOM
       videoRef.current.appendChild(videoElement);
 
       const player = playerRef.current = videojs(videoElement, options, () => {
@@ -46,7 +46,7 @@ const HLSPlayer = (props) => {
       player.autoplay(options.autoplay);
       player.src(options.sources);
     }
-  }, [videoRef, props.onReady]);
+  }, [props.link, props.onReady]); // <-- Add props.link and props.onReady to the dependency array
 
   React.useEffect(() => {
     const player = playerRef.current;
