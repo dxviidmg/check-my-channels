@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import List from './list/List';
 import "bootstrap/dist/css/bootstrap.min.css";
