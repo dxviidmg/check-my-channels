@@ -13,7 +13,10 @@ const List = () => {
     const fetchData = async () => {
       try {
         const channelsData = await getChannels();
-        channelsData.sort((a, b) => a.name.localeCompare(b.name));
+        if (channelsData.length > 0) {
+          channelsData.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
         setChannels(channelsData);
         setIsLoading(false);
       } catch (error) {
@@ -38,12 +41,15 @@ const List = () => {
     <div>
       <h1>Check my channels</h1>
       <Row>
-        {channels.map((channel, index) => (
-          <Col key={index} md={3}>
-            <HLSPlayer link={channel.link} />
-            <p>{channel.name}</p>
-          </Col>
-        ))}
+        {channels &&
+          channels.map((channel, index) => (
+            <Col key={index} md={3}>
+              <HLSPlayer link={channel.link} />
+              {channel.name}
+              <br />
+              {channel.link}
+            </Col>
+          ))}
       </Row>
     </div>
   );
